@@ -12,7 +12,6 @@ namespace Operation6
     {
         private int[,] gameBoard;
         private int turn;
-        private int gameStatus;
         private int numPositions;
         private BitmapImage[] imageArr;
 
@@ -20,7 +19,6 @@ namespace Operation6
         {
             InitializeComponent();
             turn = 1;
-            gameStatus = 0;
             numPositions = 0;
 
             imageArr = new BitmapImage[3];
@@ -138,6 +136,7 @@ namespace Operation6
                     gameBoard[1, 1] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "mc", 1);
                 }
                 else
                 {
@@ -145,10 +144,9 @@ namespace Operation6
                     gameBoard[1, 1] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "mc", 2);
                 }
             }
-
-
         }
 
         private void btnMidRight_Click(object sender, RoutedEventArgs e)
@@ -161,6 +159,7 @@ namespace Operation6
                     gameBoard[1, 2] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "mr", 1);
                 }
                 else
                 {
@@ -168,6 +167,7 @@ namespace Operation6
                     gameBoard[1, 2] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "mr", 2);
                 }
             }
 
@@ -183,6 +183,8 @@ namespace Operation6
                     gameBoard[2, 0] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "ll", 1);
+
                 }
                 else
                 {
@@ -190,6 +192,7 @@ namespace Operation6
                     gameBoard[2, 0] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "ll", 2);
                 }
             }
 
@@ -205,6 +208,7 @@ namespace Operation6
                     gameBoard[2, 1] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "lc", 1);
                 }
                 else
                 {
@@ -212,6 +216,7 @@ namespace Operation6
                     gameBoard[2, 1] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "lc", 2);
                 }
             }
 
@@ -227,6 +232,7 @@ namespace Operation6
                     gameBoard[2, 2] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "lr", 1);
                 }
                 else
                 {
@@ -234,6 +240,7 @@ namespace Operation6
                     gameBoard[2, 2] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "lr", 2);
                 }
             }
 
@@ -330,15 +337,104 @@ namespace Operation6
                         }
                     }
                     break;
+
                 case "mc":
+                    if(gameBoard[1, 1] == gameBoard[1, 0])
+                    {
+                        if (gameBoard[1, 0] == gameBoard[1, 2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[1, 1] == gameBoard[0, 1])
+                    {
+                        if (gameBoard[0, 1] == gameBoard[2, 1])
+                        {
+                            feedBack = 1;
+                        }
+                    }
                     break;
+
                 case "mr":
+                    if (gameBoard[1, 2] == gameBoard[1, 1])
+                    {
+                        if (gameBoard[1, 1] == gameBoard[1, 0])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[1, 2] == gameBoard[0, 2])
+                    {
+                        if (gameBoard[0, 2] == gameBoard[2, 2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
                     break;
+
                 case "ll":
+                    if (gameBoard[2,0] == gameBoard[1,0])
+                    {
+                        if (gameBoard[1,0] == gameBoard[0, 0])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[2,0] == gameBoard[1, 1])
+                    {
+                        if (gameBoard[1, 1] == gameBoard[0,2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[2,0] == gameBoard[2,1])
+                    {
+                        if (gameBoard[2,1] == gameBoard[2, 2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
                     break;
+
                 case "lc":
+                    if (gameBoard[2, 1] == gameBoard[2, 0])
+                    {
+                        if (gameBoard[2, 0] == gameBoard[2, 2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[2, 1] == gameBoard[1, 1])
+                    {
+                        if (gameBoard[1, 1] == gameBoard[0, 1])
+                        {
+                            feedBack = 1;
+                        }
+                    }
                     break;
+
                 case "lr":
+                    if (gameBoard[2, 2] == gameBoard[2, 1])
+                    {
+                        if (gameBoard[2,1] == gameBoard[2, 0])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[2, 2] == gameBoard[1, 1])
+                    {
+                        if (gameBoard[1, 1] == gameBoard[0, 0])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[2, 2] == gameBoard[1,2])
+                    {
+                        if (gameBoard[1,2] == gameBoard[0,2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
                     break;
             }
 
