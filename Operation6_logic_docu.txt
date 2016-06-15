@@ -1,0 +1,17 @@
+Basic Game Logic:
+*check if space is open
+*place x or o depending on turn
+*check for winner
+*check for tie (no winner, full board)
+
+-----------------------------------
+Removed the for loop at initialization because the array is already filled with zeros to begin with
+
+added a winOrTie function to help the checkForWinner function
+
+------------------------------------
+Found a bug with using 'else if' in the check for winner scenario. Must use if statements because 'else if' will prevent some winning scenarios
+
+--------------------------
+On Next commit : midRight.png, lowLeft.png, lowCenter.png, lowRight.png,
+.cs code 
