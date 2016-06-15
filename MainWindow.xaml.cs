@@ -39,13 +39,6 @@ namespace Operation6
             imageArr[2] = new BitmapImage(new Uri(@"img/blank.png", UriKind.RelativeOrAbsolute));
 
             gameBoard = new int[3, 3];
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    for (int j = 0; j < 3; j++)
-            //    {
-            //        gameBoard[i, j] = 0;
-            //    }
-            //}
         }
 
         private void btnTopLeft_Click(object sender, RoutedEventArgs e)
@@ -82,6 +75,7 @@ namespace Operation6
                     gameBoard[0, 1] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "tc", 1);
                 }
                 else
                 {
@@ -89,6 +83,7 @@ namespace Operation6
                     gameBoard[0, 1] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "tc", 2);
                 }
             }
 
@@ -105,6 +100,7 @@ namespace Operation6
                     gameBoard[0, 2] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "tr", 1);
                 }
                 else
                 {
@@ -112,6 +108,7 @@ namespace Operation6
                     gameBoard[0, 2] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "tr", 2);
                 }
             }
 
@@ -268,30 +265,63 @@ namespace Operation6
                             feedBack = 1;
                         }
                     }
-                    else if (gameBoard[0, 0] == gameBoard[1, 0])
+                    if (gameBoard[0, 0] == gameBoard[1, 0])
                     {
                         if (gameBoard[1, 0] == gameBoard[2, 0])
                         {
                             feedBack = 1;
                         }
                     }
-                    else if (gameBoard[0, 0] == gameBoard[1, 1])
+                    if (gameBoard[0, 0] == gameBoard[1, 1])
                     {
                         if (gameBoard[1, 1] == gameBoard[2, 2])
                         {
                             feedBack = 1;
                         }
                     }
-                    else
-                    {
-                        feedBack = 0;
-                    }
+                 
                     break;
 
                 case "tc":
-
+                    if(gameBoard[0,1] == gameBoard[0, 0])
+                    {
+                        if(gameBoard[0,0] == gameBoard[0, 2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if(gameBoard[0,1] == gameBoard[1, 1])
+                    {
+                        if(gameBoard[1,1] == gameBoard[2, 1])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                   
                     break;
+
                 case "tr":
+                    if(gameBoard[0,2] == gameBoard[0, 1])
+                    {
+                        if(gameBoard[0,1] == gameBoard[0, 0])
+                        {
+                            feedBack = 1;    
+                        }
+                    }
+                    if(gameBoard[0,2] == gameBoard[1, 1])
+                    {
+                        if(gameBoard[1,1] == gameBoard[2, 0])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if(gameBoard[0,2] == gameBoard[1, 2])
+                    {
+                        if(gameBoard[1,2]== gameBoard[2, 2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
                     break;
                 case "ml":
                     break;
