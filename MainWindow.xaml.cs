@@ -39,68 +39,37 @@ namespace Operation6
             imageArr[2] = new BitmapImage(new Uri(@"img/blank.png", UriKind.RelativeOrAbsolute));
 
             gameBoard = new int[3, 3];
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    gameBoard[i, j] = 0;
-                }
-            }
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    for (int j = 0; j < 3; j++)
+            //    {
+            //        gameBoard[i, j] = 0;
+            //    }
+            //}
         }
 
         private void btnTopLeft_Click(object sender, RoutedEventArgs e)
         {
-            if (gameBoard[0, 0] == 0)
+            if (gameBoard[0, 0] == 0) //checks if the space is open
             {
-                if (turn == 1)
+                if (turn == 1) //indicates that it is x's turn
                 {
-                    tlImg.Source = imageArr[0];
-                    gameBoard[0, 0] = 1;
-                    turn = 2;
-                    gameStatus = checkForWinner(gameBoard, "tl");
+                    tlImg.Source = imageArr[0]; //place the x
+                    gameBoard[0, 0] = 1; //put a marker in the array
+                    turn = 2; //change the turn 
                     numPositions++;
-
-                    if (gameStatus == 1)
-                    {
-
-                        winner(1);
-
-                        ////display winner as 'x'
-                        //label.Content = "X is the winner!";
-                        ////exit
-
-                        //MessageBoxResult result = MessageBox.Show("X is the winner!", "Game Over", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                        //if (result == MessageBoxResult.OK)
-                        //{
-                        //    Application.Current.Shutdown();
-                        //}
-
-                    }
-                    else
-                    {
-                        if(numPositions == 9)
-                        {
-                            tie();
-                            //label.Content = "It's a tie!";
-                            ////exit
-                            //MessageBoxResult result = MessageBox.Show("It's a tie!", "Game Over", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                            //if (result == MessageBoxResult.OK)
-                            //{
-                            //    Application.Current.Shutdown();
-                            //}
-                        }
-                    }
-                    
+                    checkForWinner(gameBoard, "tl", 1); //check for winner
+                                  
                 }
                 else
                 {
                     tlImg.Source = imageArr[1];
                     gameBoard[0, 0] = 2;
-                    numPositions++;
                     turn = 1;
+                    numPositions++;
+                    checkForWinner(gameBoard, "tl", 2);                   
                 }
             }
-
         }
 
         private void btnTopCenter_Click(object sender, RoutedEventArgs e)
@@ -283,7 +252,7 @@ namespace Operation6
 
         }
 
-        private int checkForWinner(int[,] arr, string position)
+        private void checkForWinner(int[,] arr, string position, int which)
         {
             int feedBack = 0;
             //a feedBack of '0' means no winner yet
@@ -292,24 +261,23 @@ namespace Operation6
             switch (position)
             {
                 case "tl":
-                    if(gameBoard[0,0] == gameBoard[0, 1])
+                    if (gameBoard[0, 0] == gameBoard[0, 1])
                     {
-                        if(gameBoard[0,1] == gameBoard[0,2])
+                        if (gameBoard[0, 1] == gameBoard[0, 2])
                         {
                             feedBack = 1;
-                            
                         }
                     }
                     else if (gameBoard[0, 0] == gameBoard[1, 0])
                     {
-                        if (gameBoard[1,0] == gameBoard[2,0])
+                        if (gameBoard[1, 0] == gameBoard[2, 0])
                         {
                             feedBack = 1;
                         }
                     }
-                    else if(gameBoard[0,0] == gameBoard[1, 1])
+                    else if (gameBoard[0, 0] == gameBoard[1, 1])
                     {
-                        if(gameBoard[1,1] == gameBoard[2, 2])
+                        if (gameBoard[1, 1] == gameBoard[2, 2])
                         {
                             feedBack = 1;
                         }
@@ -318,10 +286,10 @@ namespace Operation6
                     {
                         feedBack = 0;
                     }
-
                     break;
 
                 case "tc":
+
                     break;
                 case "tr":
                     break;
@@ -341,9 +309,28 @@ namespace Operation6
 
             }
 
+            winOrTie(feedBack, which);
 
 
-            return feedBack;
+            //return feedBack;
+        }
+
+        private void winOrTie(int result, int which)
+        {
+            if (result == 1)
+            {
+
+                winner(which);
+
+            }
+            else
+            {
+                if (numPositions == 9)
+                {
+                    tie();
+                }
+            }
+
         }
 
         private void winner(int which)
