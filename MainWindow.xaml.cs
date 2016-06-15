@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Operation6
 {
@@ -86,8 +76,6 @@ namespace Operation6
                     checkForWinner(gameBoard, "tc", 2);
                 }
             }
-
-
         }
 
         private void btnTopRight_Click(object sender, RoutedEventArgs e)
@@ -125,6 +113,7 @@ namespace Operation6
                     gameBoard[1, 0] = 1;
                     turn = 2;
                     numPositions++;
+                    checkForWinner(gameBoard, "ml", 1);
                 }
                 else
                 {
@@ -132,6 +121,7 @@ namespace Operation6
                     gameBoard[1, 0] = 2;
                     turn = 1;
                     numPositions++;
+                    checkForWinner(gameBoard, "ml", 2);
                 }
             }
 
@@ -323,7 +313,22 @@ namespace Operation6
                         }
                     }
                     break;
+
                 case "ml":
+                    if (gameBoard[1,0] == gameBoard[0, 0])
+                    {
+                        if (gameBoard[0, 0] == gameBoard[2,0])
+                        {
+                            feedBack = 1;
+                        }
+                    }
+                    if (gameBoard[1,0] == gameBoard[1, 1])
+                    {
+                        if (gameBoard[1, 1] == gameBoard[1,2])
+                        {
+                            feedBack = 1;
+                        }
+                    }
                     break;
                 case "mc":
                     break;
@@ -335,14 +340,9 @@ namespace Operation6
                     break;
                 case "lr":
                     break;
-
-
             }
 
             winOrTie(feedBack, which);
-
-
-            //return feedBack;
         }
 
         private void winOrTie(int result, int which)
@@ -360,7 +360,6 @@ namespace Operation6
                     tie();
                 }
             }
-
         }
 
         private void winner(int which)
